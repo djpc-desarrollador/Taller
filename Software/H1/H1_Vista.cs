@@ -177,7 +177,16 @@ namespace Software.H1
             }
             else
             {
-                this.negocio.Eliminar(this.seleccion);
+                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
+                if (haSidoEliminado)
+                {
+                    Notificar(titulo, "Tipo de area eliminada");
+                    LimpiarVista();
+                }
+                else
+                {
+                    MostrarError(titulo, "Error desconocido.");
+                }
             }
         }
 
