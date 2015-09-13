@@ -33,13 +33,83 @@ namespace Software.Datos
         public static string SiguienteCodigo(string nombreTabla, string nombreColumnaPrimaria)
         {
             string sql = "SELECT TOP(1) * FROM {0} ORDER BY {1} DESC";
-            return string.Format(sql,nombreTabla,nombreColumnaPrimaria);
+            return string.Format(sql, nombreTabla, nombreColumnaPrimaria);
         }
 
         public static string InsertTipoArea(TipoArea entidad)
         {
             string sql = "INSERT INTO {0}(Descripcion) VALUES ('{1}')";
             return string.Format(sql, entidad.GetType().Name, entidad.Descripcion);
+        }
+
+        public static String BuscarProfesor(Profesor entidad)
+        {
+            String a = "SELECT * FROM " + entidad.GetType().Name + " WHERE ";
+            bool b = false;
+            if (entidad.Id != null && entidad.Id > -1)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Id=" + entidad.Id;
+                b = true;
+            }
+
+            if (!String.IsNullOrEmpty(entidad.Apellido1))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Apellido1 LIKE '%" + entidad.Apellido1 + "%'";
+                b = true;
+            }
+
+            if (!String.IsNullOrEmpty(entidad.Apellido2))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Apellido2 LIKE '%" + entidad.Apellido2 + "%'";
+                b = true;
+            }
+
+            if (!String.IsNullOrEmpty(entidad.Nombres))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Nombres LIKE '%" + entidad.Nombres + "%'";
+                b = true;
+            }
+            if (!String.IsNullOrEmpty(entidad.Ci))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Ci LIKE '%" + entidad.Ci + "%'";
+                b = true;
+            }
+            if (!String.IsNullOrEmpty(entidad.Telefono))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Telefono LIKE '%" + entidad.Telefono + "%'";
+                b = true;
+            }
+            return a;
         }
     }
 }
