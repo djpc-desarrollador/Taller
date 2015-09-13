@@ -17,6 +17,20 @@ namespace Software.H1
             this.nombreTabla = "TipoArea";
         }
 
+        public bool Eliminar(Datos.TipoArea entidad)
+        {
+            try
+            {
+                conexion.TipoAreas.Remove(entidad);
+                conexion.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public Int32 SiguienteCodigoGenerado()
         {
             List<Datos.TipoArea> lista = conexion.TipoAreas.ToList();

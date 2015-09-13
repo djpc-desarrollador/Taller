@@ -14,6 +14,7 @@ namespace Software.H1
     {
 
         private H1_Negocio _Negocio;
+        private Datos.TipoArea seleccion;
 
         public H1_Vista()
         {
@@ -118,6 +119,24 @@ namespace Software.H1
             return true;
         }
 
-        
+        private void buttonEliminar_Click(object sender, EventArgs e)
+        {
+            string titulo = "Eliminacion de tipo de area";
+            bool confirmado = this.ConfirmarEliminacion();
+            if (!confirmado)
+            {
+                MostrarError(titulo,"Operacion cancelada.");
+            }
+            else
+            {
+                this._Negocio.Eliminar(this.seleccion);
+            }
+        }
+
+        private bool ConfirmarEliminacion()
+        {
+            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            return resultado == DialogResult.OK;
+        }
     }
 }
