@@ -93,6 +93,7 @@
     <Compile Include="H2\H2_Vista.Designer.cs">
       <DependentUpon>H2_Vista.cs</DependentUpon>
     </Compile>
+
     <Compile Include="H3\H3_Negocio.cs" />
     <Compile Include="H3\H3_Vista.cs">
       <SubType>Form</SubType>
@@ -100,6 +101,15 @@
     <Compile Include="H3\H3_Vista.Designer.cs">
       <DependentUpon>H3_Vista.cs</DependentUpon>
     </Compile>
+
+    <Compile Include="H4\H4_Vista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="H4\H4_Vista.Designer.cs">
+      <DependentUpon>H4_Vista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="H4\H4_Negocio.cs" />
+
     <Compile Include="Principal\Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="H3\H3_Vista.resx">
       <DependentUpon>H3_Vista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="H4\H4_Vista.resx">
+      <DependentUpon>H4_Vista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>

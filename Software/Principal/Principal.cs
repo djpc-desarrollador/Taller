@@ -32,6 +32,10 @@ namespace Software.Principal
         private void menuItemH3_Click(object sender, EventArgs e)
         {
             H3.H3_Vista vista = new H3.H3_Vista();
+        }
+        private void menuItemH4_Click(object sender, EventArgs e)
+        {
+            H4.H4_Vista vista = new H4.H4_Vista();
             vista.ShowDialog(this);
         }
     }
