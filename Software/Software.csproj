@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos\Area.cs">
+      <DependentUpon>ModelPolanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\ConexionSQL.cs" />
     <Compile Include="Datos\ModelPolanco.Context.cs">
       <AutoGen>True</AutoGen>
