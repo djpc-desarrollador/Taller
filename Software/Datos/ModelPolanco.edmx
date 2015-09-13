@@ -15,14 +15,14 @@
         </EntityType>
         <EntityType Name="Profesor">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Apellido1" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="Apellido2" Type="nchar" MaxLength="50" />
-          <Property Name="Nombres" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Apellido1" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Apellido2" Type="varchar" MaxLength="30" />
+          <Property Name="Nombres" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Ci" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="Telefono" Type="varchar" MaxLength="11" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="TipoArea">
           <Key>
@@ -66,14 +66,14 @@
       <Schema Namespace="PolancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Profesor">
           <Key>
-            <PropertyRef Name="Codigo" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Apellido1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Apellido2" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="Nombres" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Apellido1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Ci" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Telefono" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityContainer Name="PolancoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Profesors" EntityType="Self.Profesor" />
@@ -130,7 +130,7 @@
           <EntitySetMapping Name="Profesors">
             <EntityTypeMapping TypeName="PolancoModel.Profesor">
               <MappingFragment StoreEntitySet="Profesor">
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
                 <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
                 <ScalarProperty Name="Nombres" ColumnName="Nombres" />

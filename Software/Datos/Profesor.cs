@@ -14,11 +14,11 @@ namespace Software.Datos
     
     public partial class Profesor
     {
-        public int Codigo { get; set; }
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
         public string Nombres { get; set; }
         public string Ci { get; set; }
         public string Telefono { get; set; }
+        public int Id { get; set; }
     }
 }
