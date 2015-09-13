@@ -14,8 +14,8 @@ namespace Software.Datos
 
     public partial class TipoArea
     {
-        public int Codigo { get; set; }
-        public string Descripcion { get; set; }
+        public Int32 Codigo { get; set; }
+        public String Descripcion { get; set; }
 
         public TipoArea()
         {

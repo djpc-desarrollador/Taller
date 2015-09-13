@@ -12,6 +12,7 @@ namespace Software.H1
 {
     public partial class H1_Vista : Form
     {
+        public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
         private H1_Negocio negocio;
         private Datos.TipoArea seleccion;
@@ -28,6 +29,59 @@ namespace Software.H1
         private void H1_Vista_Load(object sender, EventArgs e)
         {
             LimpiarVista();
+        }
+
+        private void buttonActualizar_Click(object sender, EventArgs e)
+        {
+            if (!this.EstaEditando)
+            {
+                this.ModoEdicionOn();
+            }
+            else
+            {
+                string titulo = "Actualizacion de tipos de areas";
+                try
+                {
+                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    bool haSidoActualizado = this.negocio.Actualizar(entidad);
+                    if (haSidoActualizado)
+                    {
+                        Notificar(titulo, "Datos actualizados.");
+                        LimpiarVista();
+                    }
+                    else
+                    {
+                        MostrarError(titulo, "Error desconocido.");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MostrarError(titulo, exception.Message);
+                }
+            }
+        }
+
+        private void buttonEliminar_Click(object sender, EventArgs e)
+        {
+            string titulo = "Eliminacion de tipo de area";
+            bool confirmado = this.ConfirmarEliminacion();
+            if (!confirmado)
+            {
+                MostrarError(titulo, "Operacion cancelada.");
+            }
+            else
+            {
+                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
+                if (haSidoEliminado)
+                {
+                    Notificar(titulo, "Tipo de area eliminada");
+                    LimpiarVista();
+                }
+                else
+                {
+                    MostrarError(titulo, "Error desconocido.");
+                }
+            }
         }
 
         private void buttonInsertar_Click(object sender, EventArgs e)
@@ -66,7 +120,7 @@ namespace Software.H1
             this.seleccion = registros[indiceSeleccion];
             // Cargar datos de la seleccion.
             this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Codigo);
-            this.textBoxDescripcion.Text = this.seleccion.Descripcion;
+            this.textBoxDescripcion.Text = this.seleccion.Descripcion.Trim();
         }
 
         #endregion
@@ -76,8 +130,8 @@ namespace Software.H1
         private Datos.TipoArea ArmarEntidad()
         {
             // Extraer los datos.
-            Int32 codigo = Convert.ToInt32(textBoxCodigo.Text);
-            String descripcion = textBoxDescripcion.Text;
+            Int32 codigo = (String.IsNullOrEmpty(textBoxCodigo.Text)) ? -1 : Convert.ToInt32(textBoxCodigo.Text);
+            String descripcion = (String.IsNullOrEmpty(textBoxDescripcion.Text)) ? null : textBoxDescripcion.Text;
             return new Datos.TipoArea(codigo, descripcion);
         }
 
@@ -87,22 +141,34 @@ namespace Software.H1
             this.textBoxCodigo.Text = stringCodigo;
         }
 
+        private bool ConfirmarEliminacion()
+        {
+            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            return resultado == DialogResult.OK;
+        }
+
         private void LimpiarVista()
         {
             // Variables.
             this.registros = negocio.ListarTodos();
+            this.seleccion = null;
+            this.EstaBuscando = false;
+            this.EstaEditando = false;
 
             // Componentes.
             this.buttonInsertar.Enabled = true;
             this.buttonActualizar.Enabled = false;
             this.buttonEliminar.Enabled = false;
+            this.buttonActualizar.Text = "Editar";
+            this.buttonSeleccionar.Text = "Búsqueda";
+            this.textBoxCodigo.Enabled = false;
             this.textBoxDescripcion.Enabled = true;
             this.textBoxCodigo.Text = null;
             this.textBoxDescripcion.Text = null;
-            this.dataGridViewRegistros.DataSource = this.registros;
 
             // Operaciones.
             this.CargarCodigo();
+            this.CargarRegistros(this.registros);
         }
 
         private void ModoEdicionOff()
@@ -167,65 +233,44 @@ namespace Software.H1
             return true;
         }
 
-        private void buttonEliminar_Click(object sender, EventArgs e)
-        {
-            string titulo = "Eliminacion de tipo de area";
-            bool confirmado = this.ConfirmarEliminacion();
-            if (!confirmado)
-            {
-                MostrarError(titulo, "Operacion cancelada.");
-            }
-            else
-            {
-                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
-                if (haSidoEliminado)
-                {
-                    Notificar(titulo, "Tipo de area eliminada");
-                    LimpiarVista();
-                }
-                else
-                {
-                    MostrarError(titulo, "Error desconocido.");
-                }
-            }
-        }
-
-        private bool ConfirmarEliminacion()
-        {
-            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            return resultado == DialogResult.OK;
-        }
-
         #endregion
 
-        private void buttonActualizar_Click(object sender, EventArgs e)
+        private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
-            if (!this.EstaEditando)
+            if (!this.EstaBuscando)
             {
-                this.ModoEdicionOn();
+                this.ModoBusquedaOn();
             }
             else
             {
-                string titulo = "Actualizacion de tipos de areas";
-                try
-                {
-                    Datos.TipoArea entidad = this.ArmarEntidad();
-                    bool haSidoActualizado = this.negocio.Actualizar(entidad);
-                    if (haSidoActualizado)
-                    {
-                        Notificar(titulo, "Datos actualizados.");
-                        LimpiarVista();
-                    }
-                    else
-                    {
-                        MostrarError(titulo, "Error desconocido.");
-                    }
-                }
-                catch (Exception exception)
-                {
-                    MostrarError(titulo, exception.Message);
-                }
+                Datos.TipoArea entidad = ArmarEntidad();
+                List<Datos.TipoArea> resultados = negocio.Buscar(entidad);
+                Console.WriteLine("Resultados encontrados: " + resultados.Count);
+                CargarRegistros(resultados);
             }
+        }
+
+        private void CargarRegistros(List<Datos.TipoArea> registros)
+        {
+            this.registros = registros;
+            this.dataGridViewRegistros.DataSource = registros;
+        }
+
+        private void ModoBusquedaOn()
+        {
+            this.EstaBuscando = true;
+
+            this.textBoxCodigo.Enabled = true;
+            this.textBoxDescripcion.Enabled = true;
+            this.buttonActualizar.Enabled = false;
+            this.buttonEliminar.Enabled = false;
+            this.buttonInsertar.Enabled = false;
+            this.buttonSeleccionar.Text = "Buscar";
+        }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarVista();
         }
     }
 }

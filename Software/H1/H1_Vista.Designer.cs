@@ -125,6 +125,7 @@
             this.buttonLimpiar.TabIndex = 4;
             this.buttonLimpiar.Text = "&Limpiar";
             this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
             // 
             // buttonSeleccionar
             // 
@@ -132,8 +133,9 @@
             this.buttonSeleccionar.Name = "buttonSeleccionar";
             this.buttonSeleccionar.Size = new System.Drawing.Size(75, 23);
             this.buttonSeleccionar.TabIndex = 3;
-            this.buttonSeleccionar.Text = "Buscar";
+            this.buttonSeleccionar.Text = "Búsqueda";
             this.buttonSeleccionar.UseVisualStyleBackColor = true;
+            this.buttonSeleccionar.Click += new System.EventHandler(this.buttonSeleccionar_Click);
             // 
             // buttonEliminar
             // 

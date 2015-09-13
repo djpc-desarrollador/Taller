@@ -87,5 +87,21 @@ namespace Software.H1
                 return item.Codigo + 1;
             }
         }
+
+        public List<Datos.TipoArea> Buscar(Datos.TipoArea entidad)
+        {
+            try
+            {
+                var resultados = 
+                    from a in conexion.TipoAreas 
+                    where a.Descripcion.Contains(entidad.Descripcion) 
+                    select a ;
+                return resultados.ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
