@@ -12,20 +12,22 @@ namespace Software.H1
 {
     public partial class H1_Vista : Form
     {
-
-        private H1_Negocio _Negocio;
+        public bool EstaEditando { private set; get; }
+        private H1_Negocio negocio;
         private Datos.TipoArea seleccion;
+        private List<Datos.TipoArea> registros;
+
+        #region Metodos Generados.
 
         public H1_Vista()
         {
             InitializeComponent();
-            _Negocio = new H1_Negocio();
+            negocio = new H1_Negocio();
         }
 
         private void H1_Vista_Load(object sender, EventArgs e)
         {
             LimpiarVista();
-            CargarCodigo();
         }
 
         private void buttonInsertar_Click(object sender, EventArgs e)
@@ -37,7 +39,7 @@ namespace Software.H1
                 if (esValido)
                 {
                     Datos.TipoArea entidad = this.ArmarEntidad();
-                    bool seHaRegistrado = this._Negocio.Insertar(entidad);
+                    bool seHaRegistrado = this.negocio.Insertar(entidad);
                     if (seHaRegistrado)
                     {
                         LimpiarVista();
@@ -56,13 +58,21 @@ namespace Software.H1
             }
         }
 
-        private void textBoxDescripcion_Validating(object sender, CancelEventArgs e)
+        private void dataGridViewRegistros_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            ValidarDescripcion();
+            this.ModoEdicionOff();
+            // Referenciar seleccion.
+            int indiceSeleccion = dataGridViewRegistros.CurrentRow.Index;
+            this.seleccion = registros[indiceSeleccion];
+            // Cargar datos de la seleccion.
+            this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Codigo);
+            this.textBoxDescripcion.Text = this.seleccion.Descripcion;
         }
 
-        /* Metodos manuales */
-        
+        #endregion
+
+        #region Metodos manuales
+
         private Datos.TipoArea ArmarEntidad()
         {
             // Extraer los datos.
@@ -73,14 +83,52 @@ namespace Software.H1
 
         private void CargarCodigo()
         {
-            string stringCodigo = Convert.ToString(_Negocio.SiguienteCodigoGenerado());
+            string stringCodigo = Convert.ToString(negocio.SiguienteCodigoGenerado());
             this.textBoxCodigo.Text = stringCodigo;
         }
 
         private void LimpiarVista()
         {
+            // Variables.
+            this.registros = negocio.ListarTodos();
+
+            // Componentes.
+            this.buttonInsertar.Enabled = true;
+            this.buttonActualizar.Enabled = false;
+            this.buttonEliminar.Enabled = false;
+            this.textBoxDescripcion.Enabled = true;
             this.textBoxCodigo.Text = null;
             this.textBoxDescripcion.Text = null;
+            this.dataGridViewRegistros.DataSource = this.registros;
+
+            // Operaciones.
+            this.CargarCodigo();
+        }
+
+        private void ModoEdicionOff()
+        {
+            // Variables.
+            this.EstaEditando = false;
+            // Componentes.
+            this.textBoxCodigo.Enabled = false;
+            this.textBoxDescripcion.Enabled = false;
+            this.buttonActualizar.Text = "Editar";
+            this.buttonActualizar.Enabled = true;
+            this.buttonEliminar.Enabled = true;
+            this.buttonInsertar.Enabled = false;
+        }
+
+        private void ModoEdicionOn()
+        {
+            // Variables.
+            this.EstaEditando = true;
+            // Componentes.
+            this.textBoxCodigo.Enabled = false;
+            this.textBoxDescripcion.Enabled = true;
+            this.buttonActualizar.Text = "Guardar";
+            this.buttonActualizar.Enabled = true;
+            this.buttonEliminar.Enabled = true;
+            this.buttonInsertar.Enabled = false;
         }
 
         private void MostrarError(string titulo, string mensaje)
@@ -125,11 +173,11 @@ namespace Software.H1
             bool confirmado = this.ConfirmarEliminacion();
             if (!confirmado)
             {
-                MostrarError(titulo,"Operacion cancelada.");
+                MostrarError(titulo, "Operacion cancelada.");
             }
             else
             {
-                this._Negocio.Eliminar(this.seleccion);
+                this.negocio.Eliminar(this.seleccion);
             }
         }
 
@@ -137,6 +185,38 @@ namespace Software.H1
         {
             DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             return resultado == DialogResult.OK;
+        }
+
+        #endregion
+
+        private void buttonActualizar_Click(object sender, EventArgs e)
+        {
+            if (!this.EstaEditando)
+            {
+                this.ModoEdicionOn();
+            }
+            else
+            {
+                string titulo = "Actualizacion de tipos de areas";
+                try
+                {
+                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    bool haSidoActualizado = this.negocio.Actualizar(entidad);
+                    if (haSidoActualizado)
+                    {
+                        Notificar(titulo, "Datos actualizados.");
+                        LimpiarVista();
+                    }
+                    else
+                    {
+                        MostrarError(titulo, "Error desconocido.");
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MostrarError(titulo, exception.Message);
+                }
+            }
         }
     }
 }
