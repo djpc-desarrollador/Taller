@@ -8,22 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Software.H1
+namespace Software.H2
 {
-    public partial class H1_Vista : Form
+    public partial class H2_Vista : Form
     {
         public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
-        private H1_Negocio negocio;
-        private Datos.TipoArea seleccion;
-        private List<Datos.TipoArea> registros;
+        private H2_Negocio negocio;
+        private Datos.TipoAsociado seleccion;
+        private List<Datos.TipoAsociado> registros;
 
         #region Metodos Generados.
 
-        public H1_Vista()
+        public H2_Vista()
         {
             InitializeComponent();
-            negocio = new H1_Negocio();
+            negocio = new H2_Negocio();
         }
 
         private void H1_Vista_Load(object sender, EventArgs e)
@@ -39,10 +39,10 @@ namespace Software.H1
             }
             else
             {
-                string titulo = "Actualizacion de tipos de areas";
+                string titulo = "Actualizacion de tipos de asociados";
                 try
                 {
-                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    Datos.TipoAsociado entidad = this.ArmarEntidad();
                     bool haSidoActualizado = this.negocio.Actualizar(entidad);
                     if (haSidoActualizado)
                     {
@@ -63,7 +63,7 @@ namespace Software.H1
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            string titulo = "Eliminacion de tipo de area";
+            string titulo = "Eliminacion de tipo de asociado";
             bool confirmado = this.ConfirmarEliminacion();
             if (!confirmado)
             {
@@ -74,7 +74,7 @@ namespace Software.H1
                 bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
                 if (haSidoEliminado)
                 {
-                    Notificar(titulo, "Tipo de area eliminada");
+                    Notificar(titulo, "Tipo de asociado eliminada");
                     LimpiarVista();
                 }
                 else
@@ -92,12 +92,12 @@ namespace Software.H1
                 bool esValido = ValidarFormulario();
                 if (esValido)
                 {
-                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    Datos.TipoAsociado entidad = this.ArmarEntidad();
                     bool seHaRegistrado = this.negocio.Insertar(entidad);
                     if (seHaRegistrado)
                     {
                         LimpiarVista();
-                        this.Notificar(titulo, "Tipo de area registrado correctamente.");
+                        this.Notificar(titulo, "Tipo de asociado registrado correctamente.");
                     }
                     else
                     {
@@ -125,8 +125,8 @@ namespace Software.H1
             }
             else
             {
-                Datos.TipoArea entidad = ArmarEntidad();
-                List<Datos.TipoArea> resultados = negocio.Buscar(entidad);
+                Datos.TipoAsociado entidad = ArmarEntidad();
+                List<Datos.TipoAsociado> resultados = negocio.Buscar(entidad);
                 Console.WriteLine("Resultados encontrados: " + resultados.Count);
                 CargarRegistros(resultados);
             }
@@ -139,7 +139,7 @@ namespace Software.H1
             int indiceSeleccion = dataGridViewRegistros.CurrentRow.Index;
             this.seleccion = registros[indiceSeleccion];
             // Cargar datos de la seleccion.
-            this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Codigo);
+            this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Id);
             this.textBoxDescripcion.Text = this.seleccion.Descripcion.Trim();
         }
 
@@ -147,12 +147,12 @@ namespace Software.H1
 
         #region Metodos manuales
 
-        private Datos.TipoArea ArmarEntidad()
+        private Datos.TipoAsociado ArmarEntidad()
         {
             // Extraer los datos.
             Int32 codigo = (String.IsNullOrEmpty(textBoxCodigo.Text)) ? -1 : Convert.ToInt32(textBoxCodigo.Text);
             String descripcion = (String.IsNullOrEmpty(textBoxDescripcion.Text)) ? null : textBoxDescripcion.Text;
-            return new Datos.TipoArea() { Codigo = codigo, Descripcion = descripcion };
+            return new Datos.TipoAsociado() { Id = codigo, Descripcion = descripcion };
         }
 
         private void CargarCodigo()
@@ -161,7 +161,7 @@ namespace Software.H1
             this.textBoxCodigo.Text = stringCodigo;
         }
 
-        private void CargarRegistros(List<Datos.TipoArea> registros)
+        private void CargarRegistros(List<Datos.TipoAsociado> registros)
         {
             this.registros = registros;
             this.dataGridViewRegistros.DataSource = registros;
@@ -169,7 +169,7 @@ namespace Software.H1
 
         private bool ConfirmarEliminacion()
         {
-            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de asociado seleccionado.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             return resultado == DialogResult.OK;
         }
 

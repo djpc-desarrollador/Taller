@@ -27,5 +27,6 @@ namespace Software.Datos
     
         public DbSet<Profesor> Profesors { get; set; }
         public DbSet<TipoArea> TipoAreas { get; set; }
+        public DbSet<TipoAsociado> TipoAsociadoes { get; set; }
     }
 }

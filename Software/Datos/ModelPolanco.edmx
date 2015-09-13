@@ -4,29 +4,37 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PolancoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="PolancoModelStoreContainer">
-          <EntitySet Name="Profesor" EntityType="PolancoModel.Store.Profesor" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TipoArea" EntityType="PolancoModel.Store.TipoArea" store:Type="Tables" Schema="dbo" />
-        </EntityContainer>
+    <Schema Namespace="PolancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Profesor">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Apellido1" Type="nchar" Nullable="false" MaxLength="50" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Apellido1" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="Apellido2" Type="nchar" MaxLength="50" />
-          <Property Name="Nombres" Type="nchar" Nullable="false" MaxLength="50" />
-          <Property Name="Ci" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="Nombres" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ci" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Telefono" Type="varchar" MaxLength="11" />
         </EntityType>
         <EntityType Name="TipoArea">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="nchar" Nullable="false" MaxLength="100" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="TipoAsociado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PolancoModelStoreContainer">
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoArea" EntityType="Self.TipoArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoAsociado" EntityType="Self.TipoAsociado" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -45,6 +53,7 @@
         <EntityContainer Name="PolancoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Profesors" EntityType="Self.Profesor" />
           <EntitySet Name="TipoAreas" EntityType="PolancoModel.TipoArea" />
+          <EntitySet Name="TipoAsociadoes" EntityType="PolancoModel.TipoAsociado" />
         </EntityContainer>
         <EntityType Name="TipoArea">
           <Key>
@@ -52,6 +61,13 @@
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TipoAsociado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -76,6 +92,14 @@
               <MappingFragment StoreEntitySet="TipoArea">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoAsociadoes">
+            <EntityTypeMapping TypeName="PolancoModel.TipoAsociado">
+              <MappingFragment StoreEntitySet="TipoAsociado">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

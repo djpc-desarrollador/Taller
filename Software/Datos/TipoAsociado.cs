@@ -12,9 +12,9 @@ namespace Software.Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoArea
+    public partial class TipoAsociado
     {
-        public int Codigo { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
     }
 }
