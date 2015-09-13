@@ -30,16 +30,47 @@ namespace Software.Datos
 
     class GeneradorStringSQL
     {
-        public static string SiguienteCodigo(string nombreTabla, string nombreColumnaPrimaria)
+        public static String BuscarArea(Area entidad)
         {
-            string sql = "SELECT TOP(1) * FROM {0} ORDER BY {1} DESC";
-            return string.Format(sql,nombreTabla,nombreColumnaPrimaria);
-        }
+            String a = "SELECT * FROM " + entidad.GetType().Name + " WHERE ";
+            bool b = false;
+            if (entidad.Id != null && entidad.Id > -1)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
 
-        public static string InsertTipoArea(TipoArea entidad)
-        {
-            string sql = "INSERT INTO {0}(Descripcion) VALUES ('{1}')";
-            return string.Format(sql, entidad.GetType().Name, entidad.Descripcion);
+                b = true;
+                a += "Id=" + entidad.Id;
+            }
+
+            if (!String.IsNullOrEmpty(entidad.Descripcion))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+
+                b = true;
+                a += "Descripcion LIKE '%" + entidad.Descripcion + "%'";
+            }
+
+            if (entidad.IdTipoArea != null && entidad.IdTipoArea > -1)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+
+                b = true;
+                a += "IdTipoArea=" + entidad.IdTipoArea;
+            }
+
+            return a;
         }
     }
 }

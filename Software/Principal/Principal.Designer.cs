@@ -32,6 +32,7 @@
             this.desarrolloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemH3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,8 @@
             // 
             this.desarrolloToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemH1,
-            this.menuItemH2});
+            this.menuItemH2,
+            this.menuItemH3});
             this.desarrolloToolStripMenuItem.Name = "desarrolloToolStripMenuItem";
             this.desarrolloToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.desarrolloToolStripMenuItem.Text = "Desarrollo";
@@ -67,6 +69,13 @@
             this.menuItemH2.Size = new System.Drawing.Size(231, 22);
             this.menuItemH2.Text = "Administrar tipo de asociados";
             this.menuItemH2.Click += new System.EventHandler(this.menuItemH2_Click);
+            // 
+            // menuItemH3
+            // 
+            this.menuItemH3.Name = "menuItemH3";
+            this.menuItemH3.Size = new System.Drawing.Size(231, 22);
+            this.menuItemH3.Text = "Administrar areas";
+            this.menuItemH3.Click += new System.EventHandler(this.menuItemH3_Click);
             // 
             // Principal
             // 
@@ -90,5 +99,6 @@
         private System.Windows.Forms.ToolStripMenuItem desarrolloToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuItemH1;
         private System.Windows.Forms.ToolStripMenuItem menuItemH2;
+        private System.Windows.Forms.ToolStripMenuItem menuItemH3;
     }
 }
