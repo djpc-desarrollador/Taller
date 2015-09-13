@@ -12,16 +12,12 @@ namespace Software.Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class TipoArea
+    public partial class Area
     {
-        public TipoArea()
-        {
-            this.Areas = new HashSet<Area>();
-        }
-    
-        public int Codigo { get; set; }
+        public int Id { get; set; }
         public string Descripcion { get; set; }
+        public int IdTipoArea { get; set; }
     
-        public virtual ICollection<Area> Areas { get; set; }
+        public virtual TipoArea TipoArea { get; set; }
     }
 }

@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="PolancoModel.Profesor" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PolancoModel.TipoArea" Width="1.5" PointX="2.125" PointY="0.5" />
         <EntityTypeShape EntityType="PolancoModel.TipoAsociado" Width="1.5" PointX="3.75" PointY="0.5" />
+        <EntityTypeShape EntityType="PolancoModel.Area" Width="1.5" PointX="2" PointY="3.25" />
+        <AssociationConnector Association="PolancoModel.FK__Area__IdTipoArea__412EB0B6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

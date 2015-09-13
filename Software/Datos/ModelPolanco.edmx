@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PolancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdTipoArea" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Profesor">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -30,10 +38,27 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Area__IdTipoArea__412EB0B6">
+          <End Role="TipoArea" Type="Self.TipoArea" Multiplicity="1" />
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoArea">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="IdTipoArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PolancoModelStoreContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoArea" EntityType="Self.TipoArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoAsociado" EntityType="Self.TipoAsociado" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Area__IdTipoArea__412EB0B6" Association="Self.FK__Area__IdTipoArea__412EB0B6">
+            <End Role="TipoArea" EntitySet="TipoArea" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -54,6 +79,11 @@
           <EntitySet Name="Profesors" EntityType="Self.Profesor" />
           <EntitySet Name="TipoAreas" EntityType="PolancoModel.TipoArea" />
           <EntitySet Name="TipoAsociadoes" EntityType="PolancoModel.TipoAsociado" />
+          <EntitySet Name="Areas" EntityType="PolancoModel.Area" />
+          <AssociationSet Name="FK__Area__IdTipoArea__412EB0B6" Association="PolancoModel.FK__Area__IdTipoArea__412EB0B6">
+            <End Role="TipoArea" EntitySet="TipoAreas" />
+            <End Role="Area" EntitySet="Areas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TipoArea">
           <Key>
@@ -61,6 +91,7 @@
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Areas" Relationship="PolancoModel.FK__Area__IdTipoArea__412EB0B6" FromRole="TipoArea" ToRole="Area" />
         </EntityType>
         <EntityType Name="TipoAsociado">
           <Key>
@@ -69,6 +100,27 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="IdTipoArea" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TipoArea" Relationship="PolancoModel.FK__Area__IdTipoArea__412EB0B6" FromRole="Area" ToRole="TipoArea" />
+        </EntityType>
+        <Association Name="FK__Area__IdTipoArea__412EB0B6">
+          <End Type="PolancoModel.TipoArea" Role="TipoArea" Multiplicity="1" />
+          <End Type="PolancoModel.Area" Role="Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoArea">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="IdTipoArea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -98,6 +150,15 @@
           <EntitySetMapping Name="TipoAsociadoes">
             <EntityTypeMapping TypeName="PolancoModel.TipoAsociado">
               <MappingFragment StoreEntitySet="TipoAsociado">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="PolancoModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="IdTipoArea" ColumnName="IdTipoArea" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
