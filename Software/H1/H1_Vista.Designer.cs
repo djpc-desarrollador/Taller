@@ -41,12 +41,12 @@
             this.buttonActualizar = new System.Windows.Forms.Button();
             this.buttonInsertar = new System.Windows.Forms.Button();
             this.groupBoxRegistros = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRegistros = new System.Windows.Forms.DataGridView();
             this.errorDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxTipoArea.SuspendLayout();
             this.groupBoxOperaciones.SuspendLayout();
             this.groupBoxRegistros.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorDescripcion)).BeginInit();
             this.SuspendLayout();
             // 
@@ -91,7 +91,6 @@
             this.textBoxDescripcion.Name = "textBoxDescripcion";
             this.textBoxDescripcion.Size = new System.Drawing.Size(224, 20);
             this.textBoxDescripcion.TabIndex = 1;
-            this.textBoxDescripcion.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxDescripcion_Validating);
             // 
             // textBoxCodigo
             // 
@@ -153,6 +152,7 @@
             this.buttonActualizar.TabIndex = 1;
             this.buttonActualizar.Text = "Editar";
             this.buttonActualizar.UseVisualStyleBackColor = true;
+            this.buttonActualizar.Click += new System.EventHandler(this.buttonActualizar_Click);
             // 
             // buttonInsertar
             // 
@@ -169,7 +169,7 @@
             this.groupBoxRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxRegistros.Controls.Add(this.dataGridView1);
+            this.groupBoxRegistros.Controls.Add(this.dataGridViewRegistros);
             this.groupBoxRegistros.Location = new System.Drawing.Point(13, 159);
             this.groupBoxRegistros.Name = "groupBoxRegistros";
             this.groupBoxRegistros.Size = new System.Drawing.Size(420, 311);
@@ -177,17 +177,21 @@
             this.groupBoxRegistros.TabStop = false;
             this.groupBoxRegistros.Text = "Tipos de areas registrados";
             // 
-            // dataGridView1
+            // dataGridViewRegistros
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(414, 292);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridViewRegistros.AllowUserToAddRows = false;
+            this.dataGridViewRegistros.AllowUserToDeleteRows = false;
+            this.dataGridViewRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRegistros.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewRegistros.Location = new System.Drawing.Point(3, 16);
+            this.dataGridViewRegistros.MultiSelect = false;
+            this.dataGridViewRegistros.Name = "dataGridViewRegistros";
+            this.dataGridViewRegistros.ReadOnly = true;
+            this.dataGridViewRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewRegistros.ShowEditingIcon = false;
+            this.dataGridViewRegistros.Size = new System.Drawing.Size(414, 292);
+            this.dataGridViewRegistros.TabIndex = 0;
+            this.dataGridViewRegistros.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRegistros_CellClick);
             // 
             // errorDescripcion
             // 
@@ -208,7 +212,7 @@
             this.groupBoxTipoArea.PerformLayout();
             this.groupBoxOperaciones.ResumeLayout(false);
             this.groupBoxRegistros.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistros)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorDescripcion)).EndInit();
             this.ResumeLayout(false);
 
@@ -228,7 +232,7 @@
         private System.Windows.Forms.Button buttonActualizar;
         private System.Windows.Forms.Button buttonInsertar;
         private System.Windows.Forms.GroupBox groupBoxRegistros;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewRegistros;
         private System.Windows.Forms.ErrorProvider errorDescripcion;
     }
 }

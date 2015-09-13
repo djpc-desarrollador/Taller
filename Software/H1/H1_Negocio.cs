@@ -17,6 +17,43 @@ namespace Software.H1
             this.nombreTabla = "TipoArea";
         }
 
+        public bool Actualizar(Datos.TipoArea entidad)
+        {
+            try
+            {
+                Datos.TipoArea original = conexion.TipoAreas.Find(entidad.Codigo);
+                if (original != null)
+                {
+                    original.Descripcion = entidad.Descripcion;
+                }
+                conexion.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool Insertar(Datos.TipoArea entidad)
+        {
+            try
+            {
+                conexion.TipoAreas.Add(entidad);
+                conexion.SaveChanges();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                throw exception;
+            }
+        }
+
+        public List<Datos.TipoArea> ListarTodos()
+        {
+            return this.conexion.TipoAreas.ToList();
+        }
+
         public Int32 SiguienteCodigoGenerado()
         {
             List<Datos.TipoArea> lista = conexion.TipoAreas.ToList();
@@ -33,21 +70,7 @@ namespace Software.H1
             }
             else
             {
-                return item.Codigo++;
-            }
-        }
-
-        public bool Insertar(Datos.TipoArea entidad)
-        {
-            try
-            {
-                conexion.TipoAreas.Add(entidad);
-                conexion.SaveChanges();
-                return true;
-            }
-            catch (Exception exception)
-            {
-                throw exception;
+                return item.Codigo + 1;
             }
         }
     }
