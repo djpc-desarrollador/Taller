@@ -38,5 +38,11 @@ namespace Software.Principal
             H4.H4_Vista vista = new H4.H4_Vista();
             vista.ShowDialog(this);
         }
+
+        private void menuItemH5_Click(object sender, EventArgs e)
+        {
+            H5.H5_Vista vista = new H5.H5_Vista();
+            vista.ShowDialog(this);
+        }
     }
 }
