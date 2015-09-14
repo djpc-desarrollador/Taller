@@ -8,29 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Software.H3
+namespace Software.H1
 {
-    public partial class H3_Vista : Form
+    public partial class VistaTipoAreas : Form
     {
         public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
-        private H3_Negocio area_Negocio;
-        private H1.H1_Negocio tipoArea_Negocio;
-        private Datos.Area area_Seleccion;
-        private Datos.TipoArea tipoArea_Seleccion;
-        private List<Datos.TipoArea> tipoArea_Registros;
-        private List<Datos.Area> area_Registros;
+        private NegocioTipoAreas negocio;
+        private Datos.TipoArea seleccion;
+        private List<Datos.TipoArea> registros;
 
         #region Metodos Generados.
 
-        public H3_Vista()
+        public VistaTipoAreas()
         {
             InitializeComponent();
-            area_Negocio = new H3_Negocio();
-            tipoArea_Negocio = new H1.H1_Negocio();
+            negocio = new NegocioTipoAreas();
         }
 
-        private void form_Load(object sender, EventArgs e)
+        private void H1_Vista_Load(object sender, EventArgs e)
         {
             LimpiarVista();
         }
@@ -43,11 +39,11 @@ namespace Software.H3
             }
             else
             {
-                string titulo = "Actualizacion de areas";
+                string titulo = "Actualizacion de tipos de areas";
                 try
                 {
-                    Datos.Area entidad = this.ArmarEntidad();
-                    bool haSidoActualizado = this.area_Negocio.Actualizar(entidad);
+                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    bool haSidoActualizado = this.negocio.Actualizar(entidad);
                     if (haSidoActualizado)
                     {
                         Notificar(titulo, "Datos actualizados.");
@@ -67,7 +63,7 @@ namespace Software.H3
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            string titulo = "Eliminacion de areas";
+            string titulo = "Eliminacion de tipo de area";
             bool confirmado = this.ConfirmarEliminacion();
             if (!confirmado)
             {
@@ -75,10 +71,10 @@ namespace Software.H3
             }
             else
             {
-                bool haSidoEliminado = this.area_Negocio.Eliminar(this.area_Seleccion);
+                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
                 if (haSidoEliminado)
                 {
-                    Notificar(titulo, "Area eliminada");
+                    Notificar(titulo, "Tipo de area eliminada");
                     LimpiarVista();
                 }
                 else
@@ -90,18 +86,18 @@ namespace Software.H3
 
         private void buttonInsertar_Click(object sender, EventArgs e)
         {
-            string titulo = "Registro de areas";
+            string titulo = "Registro de tipo de areas";
             try
             {
                 bool esValido = ValidarFormulario();
                 if (esValido)
                 {
-                    Datos.Area entidad = this.ArmarEntidad();
-                    bool seHaRegistrado = this.area_Negocio.Insertar(entidad);
+                    Datos.TipoArea entidad = this.ArmarEntidad();
+                    bool seHaRegistrado = this.negocio.Insertar(entidad);
                     if (seHaRegistrado)
                     {
                         LimpiarVista();
-                        this.Notificar(titulo, "Area registrada correctamente.");
+                        this.Notificar(titulo, "Tipo de area registrado correctamente.");
                     }
                     else
                     {
@@ -129,18 +125,10 @@ namespace Software.H3
             }
             else
             {
-                String titulo = "Busqueda de areas";
-                try
-                {
-                    Datos.Area entidad = ArmarEntidad();
-                    List<Datos.Area> resultados = area_Negocio.Buscar(entidad);
-                    Console.WriteLine("Resultados encontrados: " + resultados.Count);
-                    Area_CargarRegistros(resultados);
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show(this, exception.Message, titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Datos.TipoArea entidad = ArmarEntidad();
+                List<Datos.TipoArea> resultados = negocio.Buscar(entidad);
+                Console.WriteLine("Resultados encontrados: " + resultados.Count);
+                CargarRegistros(resultados);
             }
         }
 
@@ -149,51 +137,47 @@ namespace Software.H3
             this.ModoEdicionOff();
             // Referenciar seleccion.
             int indiceSeleccion = dataGridViewRegistros.CurrentRow.Index;
-            this.area_Seleccion = area_Registros[indiceSeleccion];
+            this.seleccion = registros[indiceSeleccion];
             // Cargar datos de la seleccion.
-            this.textBoxCodigo.Text = Convert.ToString(this.area_Seleccion.Id);
-            this.textBoxDescripcion.Text = this.area_Seleccion.Descripcion.Trim();
-            int indiceCombo = tipoArea_Registros.FindIndex(a => a.Codigo == this.area_Seleccion.IdTipoArea);
-            this.comboBoxTipoArea.SelectedIndex = indiceCombo;
+            this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Codigo);
+            this.textBoxDescripcion.Text = this.seleccion.Descripcion.Trim();
         }
 
         #endregion
 
         #region Metodos manuales
 
-        private void Area_CargarRegistros(List<Datos.Area> registros)
-        {
-            this.area_Registros = registros;
-            this.dataGridViewRegistros.DataSource = registros;
-        }
-
-        private Datos.Area ArmarEntidad()
+        private Datos.TipoArea ArmarEntidad()
         {
             // Extraer los datos.
             Int32 codigo = (String.IsNullOrEmpty(textBoxCodigo.Text)) ? -1 : Convert.ToInt32(textBoxCodigo.Text);
             String descripcion = (String.IsNullOrEmpty(textBoxDescripcion.Text)) ? null : textBoxDescripcion.Text;
-            return new Datos.Area() { Id = codigo, Descripcion = descripcion, IdTipoArea = (this.tipoArea_Seleccion == null) ? -1 : this.tipoArea_Seleccion.Codigo, TipoArea = this.tipoArea_Seleccion };
+            return new Datos.TipoArea() { Codigo = codigo, Descripcion = descripcion };
         }
 
         private void CargarCodigo()
         {
-            string stringCodigo = Convert.ToString(area_Negocio.SiguienteCodigoGenerado());
+            string stringCodigo = Convert.ToString(negocio.SiguienteCodigoGenerado());
             this.textBoxCodigo.Text = stringCodigo;
+        }
+
+        private void CargarRegistros(List<Datos.TipoArea> registros)
+        {
+            this.registros = registros;
+            this.dataGridViewRegistros.DataSource = registros;
         }
 
         private bool ConfirmarEliminacion()
         {
-            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del area seleccionada.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de area.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             return resultado == DialogResult.OK;
         }
 
         private void LimpiarVista()
         {
             // Variables.
-            this.area_Registros = this.area_Negocio.ListarTodos();
-            this.tipoArea_Registros = this.tipoArea_Negocio.ListarTodos();
-            this.area_Seleccion = null;
-            this.tipoArea_Seleccion = null;
+            this.registros = negocio.ListarTodos();
+            this.seleccion = null;
             this.EstaBuscando = false;
             this.EstaEditando = false;
 
@@ -201,28 +185,21 @@ namespace Software.H3
             this.buttonInsertar.Enabled = true;
             this.buttonActualizar.Enabled = false;
             this.buttonEliminar.Enabled = false;
-
             this.buttonActualizar.Text = "Editar";
             this.buttonSeleccionar.Text = "Búsqueda";
-
-            this.comboBoxTipoArea.Enabled = true;
-
             this.textBoxCodigo.Enabled = false;
             this.textBoxDescripcion.Enabled = true;
-
             this.textBoxCodigo.Text = null;
             this.textBoxDescripcion.Text = null;
 
             // Operaciones.
             this.CargarCodigo();
-            this.TipoArea_CargarRegistros(this.tipoArea_Registros);
-            this.Area_CargarRegistros(this.area_Registros);
+            this.CargarRegistros(this.registros);
         }
 
         private void ModoBusquedaOn()
         {
             this.EstaBuscando = true;
-            this.tipoArea_Seleccion = null;
 
             this.textBoxCodigo.Enabled = true;
             this.textBoxDescripcion.Enabled = true;
@@ -243,7 +220,6 @@ namespace Software.H3
             this.buttonActualizar.Enabled = true;
             this.buttonEliminar.Enabled = true;
             this.buttonInsertar.Enabled = false;
-            this.comboBoxTipoArea.Enabled = false;
         }
 
         private void ModoEdicionOn()
@@ -257,8 +233,6 @@ namespace Software.H3
             this.buttonActualizar.Enabled = true;
             this.buttonEliminar.Enabled = true;
             this.buttonInsertar.Enabled = false;
-            this.comboBoxTipoArea.Enabled = true;
-
         }
 
         private void MostrarError(string titulo, string mensaje)
@@ -269,31 +243,6 @@ namespace Software.H3
         private void Notificar(string titulo, string mensaje)
         {
             MessageBox.Show(this, mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void TipoArea_CargarRegistros(List<Datos.TipoArea> registros)
-        {
-            this.comboBoxTipoArea.DataSource = this.tipoArea_Registros;
-            this.comboBoxTipoArea.DisplayMember = "Descripcion";
-            this.comboBoxTipoArea.SelectedIndex = -1;
-        }
-
-        private bool ValidarTipoArea()
-        {
-            bool resultadoSalida;
-
-            if (this.comboBoxTipoArea.SelectedIndex != -1)
-            {
-                resultadoSalida = true;
-                errorTipoArea.SetError(comboBoxTipoArea, "");
-            }
-            else
-            {
-                resultadoSalida = false;
-                errorTipoArea.SetError(comboBoxTipoArea, "Seleccione un elemento de la lista.");
-            }
-
-            return resultadoSalida;
         }
 
         private bool ValidarDescripcion()
@@ -315,28 +264,13 @@ namespace Software.H3
 
         private bool ValidarFormulario()
         {
-            if (
-                !ValidarDescripcion() ||
-                !ValidarTipoArea()
-            )
+            if (!ValidarDescripcion())
             {
                 return false;
             }
-
-
             return true;
         }
 
         #endregion
-
-        private void comboBoxTipoArea_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxTipoArea.SelectedIndex != -1)
-            {
-                this.tipoArea_Seleccion = tipoArea_Registros[comboBoxTipoArea.SelectedIndex];
-            }
-        }
-
-
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Software.H3
+﻿namespace Software.H1
 {
-    partial class H3_Vista
+    partial class VistaTipoAreas
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBoxArea = new System.Windows.Forms.GroupBox();
+            this.groupBoxTipoArea = new System.Windows.Forms.GroupBox();
             this.labelDescripcion = new System.Windows.Forms.Label();
             this.labelCodigo = new System.Windows.Forms.Label();
             this.textBoxDescripcion = new System.Windows.Forms.TextBox();
@@ -43,33 +43,27 @@
             this.groupBoxRegistros = new System.Windows.Forms.GroupBox();
             this.dataGridViewRegistros = new System.Windows.Forms.DataGridView();
             this.errorDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBoxTipoArea = new System.Windows.Forms.GroupBox();
-            this.labelTipoArea = new System.Windows.Forms.Label();
-            this.comboBoxTipoArea = new System.Windows.Forms.ComboBox();
-            this.errorTipoArea = new System.Windows.Forms.ErrorProvider(this.components);
-            this.groupBoxArea.SuspendLayout();
+            this.groupBoxTipoArea.SuspendLayout();
             this.groupBoxOperaciones.SuspendLayout();
             this.groupBoxRegistros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistros)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorDescripcion)).BeginInit();
-            this.groupBoxTipoArea.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorTipoArea)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBoxArea
+            // groupBoxTipoArea
             // 
-            this.groupBoxArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBoxTipoArea.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxArea.Controls.Add(this.labelDescripcion);
-            this.groupBoxArea.Controls.Add(this.labelCodigo);
-            this.groupBoxArea.Controls.Add(this.textBoxDescripcion);
-            this.groupBoxArea.Controls.Add(this.textBoxCodigo);
-            this.groupBoxArea.Location = new System.Drawing.Point(13, 13);
-            this.groupBoxArea.Name = "groupBoxArea";
-            this.groupBoxArea.Size = new System.Drawing.Size(420, 77);
-            this.groupBoxArea.TabIndex = 0;
-            this.groupBoxArea.TabStop = false;
-            this.groupBoxArea.Text = "1. Datos";
+            this.groupBoxTipoArea.Controls.Add(this.labelDescripcion);
+            this.groupBoxTipoArea.Controls.Add(this.labelCodigo);
+            this.groupBoxTipoArea.Controls.Add(this.textBoxDescripcion);
+            this.groupBoxTipoArea.Controls.Add(this.textBoxCodigo);
+            this.groupBoxTipoArea.Location = new System.Drawing.Point(13, 13);
+            this.groupBoxTipoArea.Name = "groupBoxTipoArea";
+            this.groupBoxTipoArea.Size = new System.Drawing.Size(420, 77);
+            this.groupBoxTipoArea.TabIndex = 0;
+            this.groupBoxTipoArea.TabStop = false;
+            this.groupBoxTipoArea.Text = "Datos del TIPO DE AREA";
             // 
             // labelDescripcion
             // 
@@ -95,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDescripcion.Location = new System.Drawing.Point(78, 47);
             this.textBoxDescripcion.Name = "textBoxDescripcion";
-            this.textBoxDescripcion.Size = new System.Drawing.Size(336, 20);
+            this.textBoxDescripcion.Size = new System.Drawing.Size(224, 20);
             this.textBoxDescripcion.TabIndex = 1;
             // 
             // textBoxCodigo
@@ -116,12 +110,12 @@
             this.groupBoxOperaciones.Controls.Add(this.buttonEliminar);
             this.groupBoxOperaciones.Controls.Add(this.buttonActualizar);
             this.groupBoxOperaciones.Controls.Add(this.buttonInsertar);
-            this.groupBoxOperaciones.Location = new System.Drawing.Point(12, 151);
+            this.groupBoxOperaciones.Location = new System.Drawing.Point(13, 96);
             this.groupBoxOperaciones.Name = "groupBoxOperaciones";
-            this.groupBoxOperaciones.Size = new System.Drawing.Size(421, 56);
+            this.groupBoxOperaciones.Size = new System.Drawing.Size(420, 56);
             this.groupBoxOperaciones.TabIndex = 1;
             this.groupBoxOperaciones.TabStop = false;
-            this.groupBoxOperaciones.Text = "3. Operaciones";
+            this.groupBoxOperaciones.Text = "Operaciones";
             // 
             // buttonLimpiar
             // 
@@ -179,12 +173,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxRegistros.Controls.Add(this.dataGridViewRegistros);
-            this.groupBoxRegistros.Location = new System.Drawing.Point(13, 213);
+            this.groupBoxRegistros.Location = new System.Drawing.Point(13, 159);
             this.groupBoxRegistros.Name = "groupBoxRegistros";
-            this.groupBoxRegistros.Size = new System.Drawing.Size(420, 257);
+            this.groupBoxRegistros.Size = new System.Drawing.Size(420, 311);
             this.groupBoxRegistros.TabIndex = 2;
             this.groupBoxRegistros.TabStop = false;
-            this.groupBoxRegistros.Text = "4. Areas registradas";
+            this.groupBoxRegistros.Text = "Tipos de areas registrados";
             // 
             // dataGridViewRegistros
             // 
@@ -198,7 +192,7 @@
             this.dataGridViewRegistros.ReadOnly = true;
             this.dataGridViewRegistros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRegistros.ShowEditingIcon = false;
-            this.dataGridViewRegistros.Size = new System.Drawing.Size(414, 238);
+            this.dataGridViewRegistros.Size = new System.Drawing.Size(414, 292);
             this.dataGridViewRegistros.TabIndex = 0;
             this.dataGridViewRegistros.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRegistros_CellClick);
             // 
@@ -206,67 +200,30 @@
             // 
             this.errorDescripcion.ContainerControl = this;
             // 
-            // groupBoxTipoArea
-            // 
-            this.groupBoxTipoArea.Controls.Add(this.labelTipoArea);
-            this.groupBoxTipoArea.Controls.Add(this.comboBoxTipoArea);
-            this.groupBoxTipoArea.Location = new System.Drawing.Point(12, 96);
-            this.groupBoxTipoArea.Name = "groupBoxTipoArea";
-            this.groupBoxTipoArea.Size = new System.Drawing.Size(421, 49);
-            this.groupBoxTipoArea.TabIndex = 3;
-            this.groupBoxTipoArea.TabStop = false;
-            this.groupBoxTipoArea.Text = "2. Tipo de area";
-            // 
-            // labelTipoArea
-            // 
-            this.labelTipoArea.AutoSize = true;
-            this.labelTipoArea.Location = new System.Drawing.Point(7, 23);
-            this.labelTipoArea.Name = "labelTipoArea";
-            this.labelTipoArea.Size = new System.Drawing.Size(68, 13);
-            this.labelTipoArea.TabIndex = 1;
-            this.labelTipoArea.Text = "Pertenece a:";
-            // 
-            // comboBoxTipoArea
-            // 
-            this.comboBoxTipoArea.FormattingEnabled = true;
-            this.comboBoxTipoArea.Location = new System.Drawing.Point(81, 20);
-            this.comboBoxTipoArea.Name = "comboBoxTipoArea";
-            this.comboBoxTipoArea.Size = new System.Drawing.Size(334, 21);
-            this.comboBoxTipoArea.TabIndex = 0;
-            this.comboBoxTipoArea.SelectedIndexChanged += new System.EventHandler(this.comboBoxTipoArea_SelectedIndexChanged);
-            // 
-            // errorTipoArea
-            // 
-            this.errorTipoArea.ContainerControl = this;
-            // 
-            // H3_Vista
+            // H1_Vista
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(445, 482);
-            this.Controls.Add(this.groupBoxTipoArea);
             this.Controls.Add(this.groupBoxRegistros);
             this.Controls.Add(this.groupBoxOperaciones);
-            this.Controls.Add(this.groupBoxArea);
-            this.Name = "H3_Vista";
+            this.Controls.Add(this.groupBoxTipoArea);
+            this.Name = "H1_Vista";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ADMINISTRACION DE AREAS";
-            this.Load += new System.EventHandler(this.form_Load);
-            this.groupBoxArea.ResumeLayout(false);
-            this.groupBoxArea.PerformLayout();
+            this.Text = "Tipo de area";
+            this.Load += new System.EventHandler(this.H1_Vista_Load);
+            this.groupBoxTipoArea.ResumeLayout(false);
+            this.groupBoxTipoArea.PerformLayout();
             this.groupBoxOperaciones.ResumeLayout(false);
             this.groupBoxRegistros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRegistros)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorDescripcion)).EndInit();
-            this.groupBoxTipoArea.ResumeLayout(false);
-            this.groupBoxTipoArea.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorTipoArea)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBoxArea;
+        private System.Windows.Forms.GroupBox groupBoxTipoArea;
         private System.Windows.Forms.Label labelDescripcion;
         private System.Windows.Forms.Label labelCodigo;
         private System.Windows.Forms.TextBox textBoxDescripcion;
@@ -280,9 +237,5 @@
         private System.Windows.Forms.GroupBox groupBoxRegistros;
         private System.Windows.Forms.DataGridView dataGridViewRegistros;
         private System.Windows.Forms.ErrorProvider errorDescripcion;
-        private System.Windows.Forms.GroupBox groupBoxTipoArea;
-        private System.Windows.Forms.Label labelTipoArea;
-        private System.Windows.Forms.ComboBox comboBoxTipoArea;
-        private System.Windows.Forms.ErrorProvider errorTipoArea;
     }
 }

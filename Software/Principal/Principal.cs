@@ -19,35 +19,35 @@ namespace Software.Principal
 
         private void menuItemH1_Click(object sender, EventArgs e)
         {
-            H1.H1_Vista vista = new H1.H1_Vista();
+            H1.VistaTipoAreas vista = new H1.VistaTipoAreas();
             vista.ShowDialog(this);
         }
 
         private void menuItemH2_Click(object sender, EventArgs e)
         {
-            H2.H2_Vista vista = new H2.H2_Vista();
+            H2.VistaTipoAsociados vista = new H2.VistaTipoAsociados();
             vista.ShowDialog(this);
         }
 
         private void menuItemH3_Click(object sender, EventArgs e)
         {
-            H3.H3_Vista vista = new H3.H3_Vista();
+            H3.VistaAreas vista = new H3.VistaAreas();
         }
         private void menuItemH4_Click(object sender, EventArgs e)
         {
-            H4.H4_Vista vista = new H4.H4_Vista();
+            H4.VistaProfesores vista = new H4.VistaProfesores();
             vista.ShowDialog(this);
         }
 
         private void menuItemH5_Click(object sender, EventArgs e)
         {
-            H5.H5_Vista vista = new H5.H5_Vista();
+            H5.VistaDeporte vista = new H5.VistaDeporte();
             vista.ShowDialog(this);
         }
 
         private void menuItemH6_Click(object sender, EventArgs e)
         {
-            H6.H6_Vista vista = new H6.H6_Vista();
+            H6.VistaCursos vista = new H6.VistaCursos();
             vista.ShowDialog(this);
         }
     }

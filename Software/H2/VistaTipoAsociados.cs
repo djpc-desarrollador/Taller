@@ -8,25 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Software.H4
+namespace Software.H2
 {
-    public partial class H4_Vista : Form
+    public partial class VistaTipoAsociados : Form
     {
         public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
-        private H4_Negocio negocio;
-        private Datos.Profesor seleccion;
-        private List<Datos.Profesor> registros;
+        private NegocioTipoAsociados negocio;
+        private Datos.TipoAsociado seleccion;
+        private List<Datos.TipoAsociado> registros;
 
         #region Metodos Generados.
 
-        public H4_Vista()
+        public VistaTipoAsociados()
         {
             InitializeComponent();
-            negocio = new H4_Negocio();
+            negocio = new NegocioTipoAsociados();
         }
 
-        private void Form_Load(object sender, EventArgs e)
+        private void H1_Vista_Load(object sender, EventArgs e)
         {
             LimpiarVista();
         }
@@ -39,10 +39,10 @@ namespace Software.H4
             }
             else
             {
-                string titulo = "Actualizacion de profesores";
+                string titulo = "Actualizacion de tipos de asociados";
                 try
                 {
-                    Datos.Profesor entidad = this.ArmarEntidad();
+                    Datos.TipoAsociado entidad = this.ArmarEntidad();
                     bool haSidoActualizado = this.negocio.Actualizar(entidad);
                     if (haSidoActualizado)
                     {
@@ -63,7 +63,7 @@ namespace Software.H4
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            string titulo = "Eliminacion de profesor";
+            string titulo = "Eliminacion de tipo de asociado";
             bool confirmado = this.ConfirmarEliminacion();
             if (!confirmado)
             {
@@ -71,40 +71,33 @@ namespace Software.H4
             }
             else
             {
-                try
+                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
+                if (haSidoEliminado)
                 {
-                    bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
-                    if (haSidoEliminado)
-                    {
-                        Notificar(titulo, "Profesor eliminado");
-                        LimpiarVista();
-                    }
-                    else
-                    {
-                        MostrarError(titulo, "Error desconocido.");
-                    }
+                    Notificar(titulo, "Tipo de asociado eliminada");
+                    LimpiarVista();
                 }
-                catch (Exception exception)
+                else
                 {
-                    MostrarError(titulo, exception.Message);
+                    MostrarError(titulo, "Error desconocido.");
                 }
             }
         }
 
         private void buttonInsertar_Click(object sender, EventArgs e)
         {
-            string titulo = "Registro de profesores";
+            string titulo = "Registro de tipo de areas";
             try
             {
                 bool esValido = ValidarFormulario();
                 if (esValido)
                 {
-                    Datos.Profesor entidad = this.ArmarEntidad();
+                    Datos.TipoAsociado entidad = this.ArmarEntidad();
                     bool seHaRegistrado = this.negocio.Insertar(entidad);
                     if (seHaRegistrado)
                     {
                         LimpiarVista();
-                        this.Notificar(titulo, "Profesor registrado correctamente.");
+                        this.Notificar(titulo, "Tipo de asociado registrado correctamente.");
                     }
                     else
                     {
@@ -132,18 +125,10 @@ namespace Software.H4
             }
             else
             {
-                String titulo = "Busqueda de profesores.";
-                try
-                {
-                    Datos.Profesor entidad = ArmarEntidad();
-                    List<Datos.Profesor> resultados = negocio.Buscar(entidad);
-                    Console.WriteLine("Resultados encontrados: " + resultados.Count);
-                    CargarRegistros(resultados);
-                }
-                catch (Exception exception)
-                {
-                    MostrarError(titulo, exception.Message);
-                }
+                Datos.TipoAsociado entidad = ArmarEntidad();
+                List<Datos.TipoAsociado> resultados = negocio.Buscar(entidad);
+                Console.WriteLine("Resultados encontrados: " + resultados.Count);
+                CargarRegistros(resultados);
             }
         }
 
@@ -155,45 +140,28 @@ namespace Software.H4
             this.seleccion = registros[indiceSeleccion];
             // Cargar datos de la seleccion.
             this.textBoxCodigo.Text = Convert.ToString(this.seleccion.Id);
-            textBoxApellido1.Text = seleccion.Apellido1;
-            textBoxApellido2.Text = seleccion.Apellido2;
-            textBoxNombres.Text = seleccion.Nombres;
-            textBoxCi.Text = seleccion.Ci;
-            textBoxTelefono.Text = seleccion.Telefono;
+            this.textBoxDescripcion.Text = this.seleccion.Descripcion.Trim();
         }
 
         #endregion
 
         #region Metodos manuales
 
-        private Datos.Profesor ArmarEntidad()
+        private Datos.TipoAsociado ArmarEntidad()
         {
             // Extraer los datos.
             Int32 codigo = (String.IsNullOrEmpty(textBoxCodigo.Text)) ? -1 : Convert.ToInt32(textBoxCodigo.Text);
-            String apellido1 = (String.IsNullOrEmpty(textBoxApellido1.Text)) ? null : textBoxApellido1.Text;
-            String apellido2 = (String.IsNullOrEmpty(textBoxApellido2.Text)) ? null : textBoxApellido2.Text;
-            String nombres = (String.IsNullOrEmpty(textBoxNombres.Text)) ? null : textBoxNombres.Text;
-            String ci = (String.IsNullOrEmpty(textBoxCi.Text)) ? null : textBoxCi.Text;
-            String telefono = (String.IsNullOrEmpty(textBoxTelefono.Text)) ? null : textBoxTelefono.Text;
-
-            return new Datos.Profesor()
-            {
-                Id = codigo,
-                Apellido1 = apellido1,
-                Apellido2 = apellido2,
-                Nombres = nombres,
-                Ci = ci,
-                Telefono = telefono
-            };
+            String descripcion = (String.IsNullOrEmpty(textBoxDescripcion.Text)) ? null : textBoxDescripcion.Text;
+            return new Datos.TipoAsociado() { Id = codigo, Descripcion = descripcion };
         }
 
         private void CargarCodigo()
         {
-            string stringCodigo = Convert.ToString(negocio.SiguienteCodigo());
+            string stringCodigo = Convert.ToString(negocio.SiguienteCodigoGenerado());
             this.textBoxCodigo.Text = stringCodigo;
         }
 
-        private void CargarRegistros(List<Datos.Profesor> registros)
+        private void CargarRegistros(List<Datos.TipoAsociado> registros)
         {
             this.registros = registros;
             this.dataGridViewRegistros.DataSource = registros;
@@ -201,13 +169,7 @@ namespace Software.H4
 
         private bool ConfirmarEliminacion()
         {
-            DialogResult resultado = MessageBox.Show(
-                this,
-                "Confirme la eliminacion del profesor seleccionado.",
-                "Confirmacion",
-                MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Warning
-            );
+            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de asociado seleccionado.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             return resultado == DialogResult.OK;
         }
 
@@ -225,20 +187,10 @@ namespace Software.H4
             this.buttonEliminar.Enabled = false;
             this.buttonActualizar.Text = "Editar";
             this.buttonSeleccionar.Text = "Búsqueda";
-
-            textBoxCodigo.Enabled = false;
-            textBoxApellido1.Enabled = true;
-            textBoxApellido2.Enabled = true;
-            textBoxNombres.Enabled = true;
-            textBoxCi.Enabled = true;
-            textBoxTelefono.Enabled = true;
-
-            textBoxCodigo.Text = null;
-            textBoxApellido1.Text = null;
-            textBoxApellido2.Text = null;
-            textBoxNombres.Text = null;
-            textBoxCi.Text = null;
-            textBoxTelefono.Text = null;
+            this.textBoxCodigo.Enabled = false;
+            this.textBoxDescripcion.Enabled = true;
+            this.textBoxCodigo.Text = null;
+            this.textBoxDescripcion.Text = null;
 
             // Operaciones.
             this.CargarCodigo();
@@ -249,13 +201,8 @@ namespace Software.H4
         {
             this.EstaBuscando = true;
 
-            textBoxCodigo.Enabled = true;
-            textBoxApellido1.Enabled = true;
-            textBoxApellido2.Enabled = true;
-            textBoxNombres.Enabled = true;
-            textBoxCi.Enabled = true;
-            textBoxTelefono.Enabled = true;
-
+            this.textBoxCodigo.Enabled = true;
+            this.textBoxDescripcion.Enabled = true;
             this.buttonActualizar.Enabled = false;
             this.buttonEliminar.Enabled = false;
             this.buttonInsertar.Enabled = false;
@@ -267,13 +214,8 @@ namespace Software.H4
             // Variables.
             this.EstaEditando = false;
             // Componentes.
-            textBoxCodigo.Enabled = false;
-            textBoxApellido1.Enabled = false;
-            textBoxApellido2.Enabled = false;
-            textBoxNombres.Enabled = false;
-            textBoxCi.Enabled = false;
-            textBoxTelefono.Enabled = false;
-
+            this.textBoxCodigo.Enabled = false;
+            this.textBoxDescripcion.Enabled = false;
             this.buttonActualizar.Text = "Editar";
             this.buttonActualizar.Enabled = true;
             this.buttonEliminar.Enabled = true;
@@ -285,13 +227,8 @@ namespace Software.H4
             // Variables.
             this.EstaEditando = true;
             // Componentes.
-            textBoxCodigo.Enabled = false;
-            textBoxApellido1.Enabled = true;
-            textBoxApellido2.Enabled = true;
-            textBoxNombres.Enabled = true;
-            textBoxCi.Enabled = true;
-            textBoxTelefono.Enabled = true;
-
+            this.textBoxCodigo.Enabled = false;
+            this.textBoxDescripcion.Enabled = true;
             this.buttonActualizar.Text = "Guardar";
             this.buttonActualizar.Enabled = true;
             this.buttonEliminar.Enabled = true;
@@ -308,52 +245,18 @@ namespace Software.H4
             MessageBox.Show(this, mensaje, titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool ValidarApellido1()
+        private bool ValidarDescripcion()
         {
             bool resultadoSalida;
 
-            if (String.IsNullOrEmpty(textBoxApellido1.Text))
+            if (String.IsNullOrEmpty(textBoxDescripcion.Text))
             {
-                errorApellido1.SetError(textBoxApellido1, "Este campo es obligatorio.");
+                errorDescripcion.SetError(textBoxDescripcion, "Este campo es obligatorio.");
                 resultadoSalida = false;
             }
             else
             {
-                errorApellido1.SetError(textBoxApellido1, "");
-                resultadoSalida = true;
-            }
-            return resultadoSalida;
-        }
-
-        private bool ValidarNombres()
-        {
-            bool resultadoSalida;
-
-            if (String.IsNullOrEmpty(textBoxNombres.Text))
-            {
-                errorNombres.SetError(textBoxNombres, "Este campo es obligatorio.");
-                resultadoSalida = false;
-            }
-            else
-            {
-                errorNombres.SetError(textBoxNombres, "");
-                resultadoSalida = true;
-            }
-            return resultadoSalida;
-        }
-
-        private bool ValidarCi()
-        {
-            bool resultadoSalida;
-
-            if (String.IsNullOrEmpty(textBoxCi.Text))
-            {
-                errorCi.SetError(textBoxCi, "Este campo es obligatorio.");
-                resultadoSalida = false;
-            }
-            else
-            {
-                errorCi.SetError(textBoxCi, "");
+                errorDescripcion.SetError(textBoxDescripcion, "");
                 resultadoSalida = true;
             }
             return resultadoSalida;
@@ -361,11 +264,7 @@ namespace Software.H4
 
         private bool ValidarFormulario()
         {
-            if (
-                !ValidarApellido1() ||
-                !ValidarNombres() ||
-                !ValidarCi()
-            )
+            if (!ValidarDescripcion())
             {
                 return false;
             }

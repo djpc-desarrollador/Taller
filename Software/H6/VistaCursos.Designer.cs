@@ -1,6 +1,6 @@
 ﻿namespace Software.H6
 {
-    partial class H6_Vista
+    partial class VistaCursos
     {
         /// <summary>
         /// Required designer variable.

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Software.H1
 {
-    class H1_Negocio
+    class NegocioTipoAreas
     {
         private Datos.PolancoEntities conexion;
         private string nombreTabla;
 
-        public H1_Negocio()
+        public NegocioTipoAreas()
         {
             this.conexion = Datos.ConexionSQL.GetInstance().Conexion;
             this.nombreTabla = "TipoArea";

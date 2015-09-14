@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Software.H4
 {
-    class H4_Negocio
+    class NegocioProfesores
     {
         private Datos.PolancoEntities Conexion;
 
-        public H4_Negocio()
+        public NegocioProfesores()
         {
             this.Conexion = Datos.ConexionSQL.GetInstance().Conexion;
         }

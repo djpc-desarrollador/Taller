@@ -8,25 +8,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Software.H2
+namespace Software.H5
 {
-    public partial class H2_Vista : Form
+    public partial class VistaDeporte : Form
     {
         public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
-        private H2_Negocio negocio;
-        private Datos.TipoAsociado seleccion;
-        private List<Datos.TipoAsociado> registros;
+        private NegocioDeportes negocio;
+        private Datos.Deporte seleccion;
+        private List<Datos.Deporte> registros;
 
         #region Metodos Generados.
 
-        public H2_Vista()
+        public VistaDeporte()
         {
             InitializeComponent();
-            negocio = new H2_Negocio();
+            negocio = new NegocioDeportes();
         }
 
-        private void H1_Vista_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
             LimpiarVista();
         }
@@ -39,10 +39,10 @@ namespace Software.H2
             }
             else
             {
-                string titulo = "Actualizacion de tipos de asociados";
+                string titulo = "Actualizacion de deportes";
                 try
                 {
-                    Datos.TipoAsociado entidad = this.ArmarEntidad();
+                    Datos.Deporte entidad = this.ArmarEntidad();
                     bool haSidoActualizado = this.negocio.Actualizar(entidad);
                     if (haSidoActualizado)
                     {
@@ -63,7 +63,7 @@ namespace Software.H2
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            string titulo = "Eliminacion de tipo de asociado";
+            string titulo = "Eliminacion de deportes";
             bool confirmado = this.ConfirmarEliminacion();
             if (!confirmado)
             {
@@ -71,33 +71,40 @@ namespace Software.H2
             }
             else
             {
-                bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
-                if (haSidoEliminado)
+                try
                 {
-                    Notificar(titulo, "Tipo de asociado eliminada");
-                    LimpiarVista();
+                    bool haSidoEliminado = this.negocio.Eliminar(this.seleccion);
+                    if (haSidoEliminado)
+                    {
+                        Notificar(titulo, "Deporte eliminado");
+                        LimpiarVista();
+                    }
+                    else
+                    {
+                        MostrarError(titulo, "Error desconocido.");
+                    }
                 }
-                else
+                catch (Exception exception)
                 {
-                    MostrarError(titulo, "Error desconocido.");
+                    MostrarError(titulo, exception.Message);
                 }
             }
         }
 
         private void buttonInsertar_Click(object sender, EventArgs e)
         {
-            string titulo = "Registro de tipo de areas";
+            string titulo = "Registro de deporte";
             try
             {
                 bool esValido = ValidarFormulario();
                 if (esValido)
                 {
-                    Datos.TipoAsociado entidad = this.ArmarEntidad();
+                    Datos.Deporte entidad = this.ArmarEntidad();
                     bool seHaRegistrado = this.negocio.Insertar(entidad);
                     if (seHaRegistrado)
                     {
                         LimpiarVista();
-                        this.Notificar(titulo, "Tipo de asociado registrado correctamente.");
+                        this.Notificar(titulo, "Deporte registrado correctamente.");
                     }
                     else
                     {
@@ -108,7 +115,7 @@ namespace Software.H2
             }
             catch (Exception exception)
             {
-                MessageBox.Show(this, exception.Message, titulo, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MostrarError(titulo, exception.Message);
             }
         }
 
@@ -125,10 +132,18 @@ namespace Software.H2
             }
             else
             {
-                Datos.TipoAsociado entidad = ArmarEntidad();
-                List<Datos.TipoAsociado> resultados = negocio.Buscar(entidad);
-                Console.WriteLine("Resultados encontrados: " + resultados.Count);
-                CargarRegistros(resultados);
+                String titulo = "Busqueda de deportes";
+                try
+                {
+                    Datos.Deporte entidad = ArmarEntidad();
+                    List<Datos.Deporte> resultados = negocio.Buscar(entidad);
+                    Console.WriteLine("Resultados encontrados: " + resultados.Count);
+                    CargarRegistros(resultados);
+                }
+                catch (Exception exception)
+                {
+                    MostrarError(titulo, exception.Message);
+                }
             }
         }
 
@@ -147,21 +162,21 @@ namespace Software.H2
 
         #region Metodos manuales
 
-        private Datos.TipoAsociado ArmarEntidad()
+        private Datos.Deporte ArmarEntidad()
         {
             // Extraer los datos.
             Int32 codigo = (String.IsNullOrEmpty(textBoxCodigo.Text)) ? -1 : Convert.ToInt32(textBoxCodigo.Text);
             String descripcion = (String.IsNullOrEmpty(textBoxDescripcion.Text)) ? null : textBoxDescripcion.Text;
-            return new Datos.TipoAsociado() { Id = codigo, Descripcion = descripcion };
+            return new Datos.Deporte() { Id = codigo, Descripcion = descripcion };
         }
 
         private void CargarCodigo()
         {
-            string stringCodigo = Convert.ToString(negocio.SiguienteCodigoGenerado());
+            string stringCodigo = Convert.ToString(negocio.SiguienteCodigo());
             this.textBoxCodigo.Text = stringCodigo;
         }
 
-        private void CargarRegistros(List<Datos.TipoAsociado> registros)
+        private void CargarRegistros(List<Datos.Deporte> registros)
         {
             this.registros = registros;
             this.dataGridViewRegistros.DataSource = registros;
@@ -169,7 +184,8 @@ namespace Software.H2
 
         private bool ConfirmarEliminacion()
         {
-            DialogResult resultado = MessageBox.Show(this, "Confirme la eliminacion del tipo de asociado seleccionado.", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            String mensaje = "Confirme la eliminacion del deporte seleccionado.";
+            DialogResult resultado = MessageBox.Show(this, mensaje, "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             return resultado == DialogResult.OK;
         }
 
@@ -187,8 +203,10 @@ namespace Software.H2
             this.buttonEliminar.Enabled = false;
             this.buttonActualizar.Text = "Editar";
             this.buttonSeleccionar.Text = "Búsqueda";
+
             this.textBoxCodigo.Enabled = false;
             this.textBoxDescripcion.Enabled = true;
+
             this.textBoxCodigo.Text = null;
             this.textBoxDescripcion.Text = null;
 
@@ -272,5 +290,8 @@ namespace Software.H2
         }
 
         #endregion
+
+        // Dejar siempre esta linea.
+
     }
 }

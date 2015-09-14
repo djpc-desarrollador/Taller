@@ -11,32 +11,32 @@ using System.Windows.Forms;
 
 namespace Software.H6
 {
-    public partial class H6_Vista : Form
+    public partial class VistaCursos : Form
     {
         public bool EstaBuscando { private set; get; }
         public bool EstaEditando { private set; get; }
         // Profesor
-        private H4.H4_Negocio profesorNegocio;
+        private H4.NegocioProfesores profesorNegocio;
         private Datos.Profesor profesorSeleccion;
         private List<Datos.Profesor> profesorRegistros;
         // Deporte
-        private H5.H5_Negocio deporteNegocio;
+        private H5.NegocioDeportes deporteNegocio;
         private Datos.Deporte deporteSeleccion;
         private List<Datos.Deporte> deporteRegistros;
         // Curso
-        private H6_Negocio cursoNegocio;
+        private NegocioCursos cursoNegocio;
         private Datos.Curso cursoSeleccion;
         private List<Datos.Curso> cursoRegistros;
 
         #region Metodos Generados.
 
-        public H6_Vista()
+        public VistaCursos()
         {
 
             InitializeComponent();
-            this.cursoNegocio = new H6_Negocio();
-            this.profesorNegocio = new H4.H4_Negocio();
-            this.deporteNegocio = new H5.H5_Negocio();
+            this.cursoNegocio = new NegocioCursos();
+            this.profesorNegocio = new H4.NegocioProfesores();
+            this.deporteNegocio = new H5.NegocioDeportes();
         }
 
         private void Form_Load(object sender, EventArgs e)

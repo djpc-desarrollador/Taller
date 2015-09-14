@@ -4,25 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Software.H2
+namespace Software.H3
 {
-    class H2_Negocio
+    class NegocioAreas
     {
         private Datos.PolancoEntities conexion;
 
-        public H2_Negocio()
+        public NegocioAreas()
         {
             this.conexion = Datos.ConexionSQL.GetInstance().Conexion;
         }
 
-        public bool Actualizar(Datos.TipoAsociado entidad)
+        public bool Actualizar(Datos.Area entidad)
         {
             try
             {
-                Datos.TipoAsociado original = conexion.TipoAsociadoes.Find(entidad.Id);
+                Datos.Area original = conexion.Areas.Find(entidad.Id);
                 if (original != null)
                 {
                     original.Descripcion = entidad.Descripcion;
+                    original.TipoArea = entidad.TipoArea;
                 }
                 conexion.SaveChanges();
                 return true;
@@ -33,14 +34,11 @@ namespace Software.H2
             }
         }
 
-        public List<Datos.TipoAsociado> Buscar(Datos.TipoAsociado entidad)
+        public List<Datos.Area> Buscar(Datos.Area entidad)
         {
             try
             {
-                var resultados =
-                    from a in conexion.TipoAsociadoes
-                    where a.Descripcion.Contains(entidad.Descripcion)
-                    select a;
+                var resultados = conexion.Database.SqlQuery<Datos.Area>(Datos.GeneradorStringSQL.BuscarArea(entidad), new Object[0]);
                 return resultados.ToList();
             }
             catch (Exception)
@@ -49,11 +47,11 @@ namespace Software.H2
             }
         }
 
-        public bool Eliminar(Datos.TipoAsociado entidad)
+        public bool Eliminar(Datos.Area entidad)
         {
             try
             {
-                conexion.TipoAsociadoes.Remove(entidad);
+                conexion.Areas.Remove(entidad);
                 conexion.SaveChanges();
                 return true;
             }
@@ -63,11 +61,11 @@ namespace Software.H2
             }
         }
 
-        public bool Insertar(Datos.TipoAsociado entidad)
+        public bool Insertar(Datos.Area entidad)
         {
             try
             {
-                conexion.TipoAsociadoes.Add(entidad);
+                conexion.Areas.Add(entidad);
                 conexion.SaveChanges();
                 return true;
             }
@@ -77,20 +75,20 @@ namespace Software.H2
             }
         }
 
-        public List<Datos.TipoAsociado> ListarTodos()
+        public List<Datos.Area> ListarTodos()
         {
-            return this.conexion.TipoAsociadoes.ToList();
+            return this.conexion.Areas.ToList();
         }
 
         public Int32 SiguienteCodigoGenerado()
         {
-            List<Datos.TipoAsociado> lista = ListarTodos();
+            List<Datos.Area> lista = ListarTodos();
             if (lista == null || lista.Count == 0)
             {
                 return 1;
             }
 
-            Datos.TipoAsociado item = lista.Last();
+            Datos.Area item = lista.Last();
 
             if (item == null)
             {

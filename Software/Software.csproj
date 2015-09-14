@@ -85,49 +85,49 @@
     <Compile Include="Datos\TipoAsociado.cs">
       <DependentUpon>ModelPolanco.tt</DependentUpon>
     </Compile>
-    <Compile Include="H1\H1_Negocio.cs" />
-    <Compile Include="H1\H1_Vista.cs">
+    <Compile Include="H1\NegocioTipoAreas.cs" />
+    <Compile Include="H1\VistaTipoAreas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H1\H1_Vista.Designer.cs">
-      <DependentUpon>H1_Vista.cs</DependentUpon>
+    <Compile Include="H1\VistaTipoAreas.Designer.cs">
+      <DependentUpon>VistaTipoAreas.cs</DependentUpon>
     </Compile>
-    <Compile Include="H2\H2_Negocio.cs" />
-    <Compile Include="H2\H2_Vista.cs">
+    <Compile Include="H2\NegocioTipoAsociados.cs" />
+    <Compile Include="H2\VistaTipoAsociados.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H2\H2_Vista.Designer.cs">
-      <DependentUpon>H2_Vista.cs</DependentUpon>
+    <Compile Include="H2\VistaTipoAsociados.Designer.cs">
+      <DependentUpon>VistaTipoAsociados.cs</DependentUpon>
     </Compile>
-    <Compile Include="H3\H3_Negocio.cs" />
-    <Compile Include="H3\H3_Vista.cs">
+    <Compile Include="H3\NegocioAreas.cs" />
+    <Compile Include="H3\VistaAreas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H3\H3_Vista.Designer.cs">
-      <DependentUpon>H3_Vista.cs</DependentUpon>
+    <Compile Include="H3\VistaAreas.Designer.cs">
+      <DependentUpon>VistaAreas.cs</DependentUpon>
     </Compile>
-    <Compile Include="H4\H4_Vista.cs">
+    <Compile Include="H4\VistaProfesores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H4\H4_Vista.Designer.cs">
-      <DependentUpon>H4_Vista.cs</DependentUpon>
+    <Compile Include="H4\VistaProfesores.Designer.cs">
+      <DependentUpon>VistaProfesores.cs</DependentUpon>
     </Compile>
-    <Compile Include="H4\H4_Negocio.cs" />
-    <Compile Include="H5\H5_Negocio.cs" />
-    <Compile Include="H5\H5_Vista.cs">
+    <Compile Include="H4\NegocioProfesores.cs" />
+    <Compile Include="H5\NegocioDeportes.cs" />
+    <Compile Include="H5\VistaDeporte.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H5\H5_Vista.Designer.cs">
-      <DependentUpon>H5_Vista.cs</DependentUpon>
+    <Compile Include="H5\VistaDeporte.Designer.cs">
+      <DependentUpon>VistaDeporte.cs</DependentUpon>
     </Compile>
-    <Compile Include="H6\H6_Negocio.cs">
+    <Compile Include="H6\NegocioCursos.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="H6\H6_Vista.cs">
+    <Compile Include="H6\VistaCursos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H6\H6_Vista.Designer.cs">
-      <DependentUpon>H6_Vista.cs</DependentUpon>
+    <Compile Include="H6\VistaCursos.Designer.cs">
+      <DependentUpon>VistaCursos.cs</DependentUpon>
     </Compile>
     <Compile Include="Principal\Principal.cs">
       <SubType>Form</SubType>
@@ -137,23 +137,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="H1\H1_Vista.resx">
-      <DependentUpon>H1_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H1\VistaTipoAreas.resx">
+      <DependentUpon>VistaTipoAreas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="H2\H2_Vista.resx">
-      <DependentUpon>H2_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H2\VistaTipoAsociados.resx">
+      <DependentUpon>VistaTipoAsociados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="H3\H3_Vista.resx">
-      <DependentUpon>H3_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H3\VistaAreas.resx">
+      <DependentUpon>VistaAreas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="H4\H4_Vista.resx">
-      <DependentUpon>H4_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H4\VistaProfesores.resx">
+      <DependentUpon>VistaProfesores.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="H5\H5_Vista.resx">
-      <DependentUpon>H5_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H5\VistaDeporte.resx">
+      <DependentUpon>VistaDeporte.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="H6\H6_Vista.resx">
-      <DependentUpon>H6_Vista.cs</DependentUpon>
+    <EmbeddedResource Include="H6\VistaCursos.resx">
+      <DependentUpon>VistaCursos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
