@@ -30,5 +30,6 @@ namespace Software.Datos
         public DbSet<TipoAsociado> TipoAsociadoes { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Deporte> Deportes { get; set; }
+        public DbSet<Curso> Cursoes { get; set; }
     }
 }

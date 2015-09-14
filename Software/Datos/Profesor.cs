@@ -14,11 +14,18 @@ namespace Software.Datos
     
     public partial class Profesor
     {
+        public Profesor()
+        {
+            this.Cursoes = new HashSet<Curso>();
+        }
+    
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
         public string Nombres { get; set; }
         public string Ci { get; set; }
         public string Telefono { get; set; }
         public int Id { get; set; }
+    
+        public virtual ICollection<Curso> Cursoes { get; set; }
     }
 }

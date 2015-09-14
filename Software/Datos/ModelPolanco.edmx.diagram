@@ -11,6 +11,9 @@
         <EntityTypeShape EntityType="PolancoModel.Area" Width="1.5" PointX="2" PointY="3.25" />
         <AssociationConnector Association="PolancoModel.FK__Area__IdTipoArea__412EB0B6" />
         <EntityTypeShape EntityType="PolancoModel.Deporte" Width="1.5" PointX="5.375" PointY="0.5" />
+        <EntityTypeShape EntityType="PolancoModel.Curso" Width="1.5" PointX="7.625" PointY="0.75" />
+        <AssociationConnector Association="PolancoModel.FK__Curso__IdDeporte__47DBAE45" />
+        <AssociationConnector Association="PolancoModel.FK__Curso__IdProfeso__48CFD27E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

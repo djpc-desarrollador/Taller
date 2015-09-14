@@ -14,7 +14,14 @@ namespace Software.Datos
     
     public partial class Deporte
     {
+        public Deporte()
+        {
+            this.Cursoes = new HashSet<Curso>();
+        }
+    
         public int Id { get; set; }
         public string Descripcion { get; set; }
+    
+        public virtual ICollection<Curso> Cursoes { get; set; }
     }
 }

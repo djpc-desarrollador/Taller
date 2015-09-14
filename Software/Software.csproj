@@ -55,6 +55,9 @@
       <DependentUpon>ModelPolanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Datos\ConexionSQL.cs" />
+    <Compile Include="Datos\Curso.cs">
+      <DependentUpon>ModelPolanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\Deporte.cs">
       <DependentUpon>ModelPolanco.tt</DependentUpon>
     </Compile>
