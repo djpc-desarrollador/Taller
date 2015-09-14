@@ -55,6 +55,9 @@
       <DependentUpon>ModelPolanco.tt</DependentUpon>
     </Compile>
     <Compile Include="Datos\ConexionSQL.cs" />
+    <Compile Include="Datos\Deporte.cs">
+      <DependentUpon>ModelPolanco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Datos\ModelPolanco.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,7 +96,6 @@
     <Compile Include="H2\H2_Vista.Designer.cs">
       <DependentUpon>H2_Vista.cs</DependentUpon>
     </Compile>
-
     <Compile Include="H3\H3_Negocio.cs" />
     <Compile Include="H3\H3_Vista.cs">
       <SubType>Form</SubType>
@@ -101,7 +103,6 @@
     <Compile Include="H3\H3_Vista.Designer.cs">
       <DependentUpon>H3_Vista.cs</DependentUpon>
     </Compile>
-
     <Compile Include="H4\H4_Vista.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,7 +110,6 @@
       <DependentUpon>H4_Vista.cs</DependentUpon>
     </Compile>
     <Compile Include="H4\H4_Negocio.cs" />
-
     <Compile Include="Principal\Principal.cs">
       <SubType>Form</SubType>
     </Compile>

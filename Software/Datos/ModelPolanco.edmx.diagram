@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="PolancoModel.TipoAsociado" Width="1.5" PointX="3.75" PointY="0.5" />
         <EntityTypeShape EntityType="PolancoModel.Area" Width="1.5" PointX="2" PointY="3.25" />
         <AssociationConnector Association="PolancoModel.FK__Area__IdTipoArea__412EB0B6" />
+        <EntityTypeShape EntityType="PolancoModel.Deporte" Width="1.5" PointX="5.375" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

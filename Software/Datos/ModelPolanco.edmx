@@ -13,6 +13,13 @@
           <Property Name="Descripcion" Type="nchar" MaxLength="100" Nullable="false" />
           <Property Name="IdTipoArea" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Deporte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Profesor">
           <Key>
             <PropertyRef Name="Id" />
@@ -52,6 +59,7 @@
         </Association>
         <EntityContainer Name="PolancoModelStoreContainer">
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Deporte" EntityType="Self.Deporte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoArea" EntityType="Self.TipoArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoAsociado" EntityType="Self.TipoAsociado" Schema="dbo" store:Type="Tables" />
@@ -84,6 +92,7 @@
             <End Role="TipoArea" EntitySet="TipoAreas" />
             <End Role="Area" EntitySet="Areas" />
           </AssociationSet>
+          <EntitySet Name="Deportes" EntityType="PolancoModel.Deporte" />
         </EntityContainer>
         <EntityType Name="TipoArea">
           <Key>
@@ -121,6 +130,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Deporte">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -159,6 +175,14 @@
             <EntityTypeMapping TypeName="PolancoModel.Area">
               <MappingFragment StoreEntitySet="Area">
                 <ScalarProperty Name="IdTipoArea" ColumnName="IdTipoArea" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deportes">
+            <EntityTypeMapping TypeName="PolancoModel.Deporte">
+              <MappingFragment StoreEntitySet="Deporte">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

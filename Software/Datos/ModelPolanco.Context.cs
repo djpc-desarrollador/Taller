@@ -29,5 +29,6 @@ namespace Software.Datos
         public DbSet<TipoArea> TipoAreas { get; set; }
         public DbSet<TipoAsociado> TipoAsociadoes { get; set; }
         public DbSet<Area> Areas { get; set; }
+        public DbSet<Deporte> Deportes { get; set; }
     }
 }
