@@ -34,6 +34,7 @@
             this.menuItemH2 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemH5 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,8 @@
             this.menuItemH1,
             this.menuItemH2,
             this.menuItemH3,
-            this.menuItemH4});
+            this.menuItemH4,
+            this.menuItemH5});
             this.desarrolloToolStripMenuItem.Name = "desarrolloToolStripMenuItem";
             this.desarrolloToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.desarrolloToolStripMenuItem.Text = "Desarrollo";
@@ -78,13 +80,20 @@
             this.menuItemH3.Size = new System.Drawing.Size(231, 22);
             this.menuItemH3.Text = "Administrar areas";
             this.menuItemH3.Click += new System.EventHandler(this.menuItemH3_Click);
-            //
+            // 
             // menuItemH4
             // 
             this.menuItemH4.Name = "menuItemH4";
             this.menuItemH4.Size = new System.Drawing.Size(231, 22);
             this.menuItemH4.Text = "Administrar profesor";
             this.menuItemH4.Click += new System.EventHandler(this.menuItemH4_Click);
+            // 
+            // menuItemH5
+            // 
+            this.menuItemH5.Name = "menuItemH5";
+            this.menuItemH5.Size = new System.Drawing.Size(231, 22);
+            this.menuItemH5.Text = "Administrar deportes";
+            this.menuItemH5.Click += new System.EventHandler(this.menuItemH5_Click);
             // 
             // Principal
             // 
@@ -110,5 +119,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemH2;
         private System.Windows.Forms.ToolStripMenuItem menuItemH3;
         private System.Windows.Forms.ToolStripMenuItem menuItemH4;
+        private System.Windows.Forms.ToolStripMenuItem menuItemH5;
     }
 }

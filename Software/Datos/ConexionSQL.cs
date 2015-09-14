@@ -141,5 +141,37 @@ namespace Software.Datos
             }
             return a;
         }
+
+        public static String BuscarDeporte(Deporte entidad)
+        {
+            String a = "SELECT * FROM " + entidad.GetType().Name + " WHERE ";
+            bool b = false;
+            if (entidad.Id != null && entidad.Id > -1)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Id=" + entidad.Id;
+                b = true;
+            }
+
+            if (!String.IsNullOrEmpty(entidad.Descripcion))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Descripcion LIKE '%" + entidad.Descripcion + "%'";
+                b = true;
+            }
+
+            return a;
+        }
+
+        // Dejar siempre esta linea.
+
     }
 }
