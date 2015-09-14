@@ -19,8 +19,12 @@ namespace Software.H5
         {
             try
             {
-                Conexion.Deportes.Add(entidad);
-                Conexion.SaveChanges();
+                Datos.Deporte original = this.Conexion.Deportes.Find(entidad.Id);
+                if (original != null)
+                {
+                    original.Descripcion = entidad.Descripcion;
+                }
+                this.Conexion.SaveChanges();
                 return true;
             }
             catch (Exception)

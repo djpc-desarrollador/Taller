@@ -19,8 +19,16 @@ namespace Software.H4
         {
             try
             {
-                Conexion.Profesors.Add(entidad);
-                Conexion.SaveChanges();
+                Datos.Profesor original = this.Conexion.Profesors.Find(entidad.Id);
+                if (original != null)
+                {
+                    original.Apellido1 = entidad.Apellido1;
+                    original.Apellido2 = entidad.Apellido2;
+                    original.Nombres = entidad.Nombres;
+                    original.Ci = entidad.Ci;
+                    original.Telefono = entidad.Telefono;
+                }
+                this.Conexion.SaveChanges();
                 return true;
             }
             catch (Exception)

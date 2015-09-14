@@ -19,7 +19,21 @@ namespace Software.H6
         {
             try
             {
-                this.Conexion.Cursoes.Add(entidad);
+                Datos.Curso original = this.Conexion.Cursoes.Find(entidad.Id);
+                if (original != null)
+                {
+                    original.IdDeporte = entidad.IdDeporte;
+                    original.Deporte = entidad.Deporte;
+                    original.IdProfesor = entidad.IdDeporte;
+                    original.Profesor = entidad.Profesor;
+                    original.Nombre = entidad.Nombre;
+                    original.Observacion = entidad.Observacion;
+                    original.Duracion = entidad.Duracion;
+                    original.FechaInicio = entidad.FechaInicio;
+                    original.FechaFin = entidad.FechaFin;
+                    original.HoraFin = entidad.HoraFin;
+                    original.HoraInicio = entidad.HoraInicio;
+                }
                 this.Conexion.SaveChanges();
                 return true;
             }
