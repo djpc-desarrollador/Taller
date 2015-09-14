@@ -35,6 +35,7 @@
             this.menuItemH3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH4 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemH5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemH6 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,8 @@
             this.menuItemH2,
             this.menuItemH3,
             this.menuItemH4,
-            this.menuItemH5});
+            this.menuItemH5,
+            this.menuItemH6});
             this.desarrolloToolStripMenuItem.Name = "desarrolloToolStripMenuItem";
             this.desarrolloToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
             this.desarrolloToolStripMenuItem.Text = "Desarrollo";
@@ -95,6 +97,13 @@
             this.menuItemH5.Text = "Administrar deportes";
             this.menuItemH5.Click += new System.EventHandler(this.menuItemH5_Click);
             // 
+            // menuItemH6
+            // 
+            this.menuItemH6.Name = "menuItemH6";
+            this.menuItemH6.Size = new System.Drawing.Size(231, 22);
+            this.menuItemH6.Text = "Administracion de cursos";
+            this.menuItemH6.Click += new System.EventHandler(this.menuItemH6_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -103,6 +112,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Principal";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -120,5 +130,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemH3;
         private System.Windows.Forms.ToolStripMenuItem menuItemH4;
         private System.Windows.Forms.ToolStripMenuItem menuItemH5;
+        private System.Windows.Forms.ToolStripMenuItem menuItemH6;
     }
 }

@@ -171,7 +171,62 @@ namespace Software.Datos
             return a;
         }
 
-        // Dejar siempre esta linea.
-
+        // Este es el nuevo bloque de codigo.
+        public static String BuscarCurso(Curso entidad)
+        {
+            String a = "SELECT * FROM " + entidad.GetType().Name + " WHERE ";
+            bool b = false;
+            if (entidad.Id > -1)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Id=" + entidad.Id;
+                b = true;
+            }
+            if (entidad.Deporte != null)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "IdDeporte=" + entidad.Deporte.Id;
+                b = true;
+            }
+            if (entidad.Profesor != null)
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "IdProfesor=" + entidad.Profesor.Id;
+                b = true;
+            }
+            if (!String.IsNullOrEmpty(entidad.Nombre))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Nombre LIKE '%" + entidad.Nombre + "%'";
+                b = true;
+            }
+            if (!String.IsNullOrEmpty(entidad.Observacion))
+            {
+                if (b)
+                {
+                    a += " AND ";
+                    b = false;
+                }
+                a += "Observacion LIKE '%" + entidad.Observacion + "%'";
+                b = true;
+            }
+            return a;
+        }
     }
 }
